@@ -56,7 +56,7 @@ namespace Lab1 {
     /// This will show you how to apply quantum gates to qubits in Q#.
     operation Exercise1 (target: Qubit) : Unit {
         // TODO
-        fail "Not implemented.";
+        X(target);
     }
 
     /// # Summary
