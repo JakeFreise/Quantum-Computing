@@ -55,7 +55,6 @@ namespace Lab1 {
     /// # Remarks
     /// This will show you how to apply quantum gates to qubits in Q#.
     operation Exercise1 (target: Qubit) : Unit {
-        // TODO
         X(target);
     }
 
@@ -76,7 +75,6 @@ namespace Lab1 {
     /// This should show you how to use single-qubit gates to put qubits into
     /// uniform quantum superpositions.
     operation Exercise2 (targetA : Qubit, targetB : Qubit) : Unit {
-        // TODO
         H(targetA);
         X(targetB);
         H(targetB);
