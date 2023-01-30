@@ -77,7 +77,9 @@ namespace Lab1 {
     /// uniform quantum superpositions.
     operation Exercise2 (targetA : Qubit, targetB : Qubit) : Unit {
         // TODO
-        fail "Not implemented.";
+        H(targetA);
+        X(targetB);
+        H(targetB);
     }
 
 }
