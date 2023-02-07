@@ -36,8 +36,11 @@ namespace Lab2 {
         // a double for floating-point arithmetic. Q# won't let you do
         // arithmetic between Doubles and Ints directly.
 
-        // TODO
-        fail "Not implemented.";
+        mutable index = 0;
+        for qubit in qubits{
+            Ry(IntAsDouble(index) * PI() / 12.0, qubit);
+            set index += 1;
+        }
     }
 
 
@@ -67,9 +70,15 @@ namespace Lab2 {
         // directly and update each of its values with the apply-and-replace
         // operator, or append each Int to the array as you go. Use whichever
         // method you prefer.
-
-        // TODO
-        fail "Not implemented.";
+        let n = Length(qubits);
+        mutable index = 0;
+        mutable int_array = [0,size=n];
+        for qubit in qubits{
+            let result_as_int = M(qubit) == One ? 1 | 0;
+            set int_array w/= index <- result_as_int;
+            set index += 1;
+        }
+        return int_array;
     }
 
     /// # Summary
@@ -93,7 +102,9 @@ namespace Lab2 {
     /// each superposition term has an equal amplitude to the others.
     operation Exercise3 (register : Qubit[]) : Unit {
         // TODO
-        fail "Not implemented.";
+        for qubit in register{
+            H(qubit);
+        }
     }
 
     /// # Summary
@@ -116,7 +127,7 @@ namespace Lab2 {
     /// state and tests your understanding of using integers for register
     /// values.
     operation Exercise4 (register : Qubit[]) : Unit {
-        // TODO
-        fail "Not implemented.";
+        
+        Z(register[0]);
     }
 }
