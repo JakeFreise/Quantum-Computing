@@ -127,7 +127,7 @@ namespace Lab2 {
     /// state and tests your understanding of using integers for register
     /// values.
     operation Exercise4 (register : Qubit[]) : Unit {
-        
-        Z(register[0]);
+        let n = Length(register);
+        Z(register[n-1]);
     }
 }
