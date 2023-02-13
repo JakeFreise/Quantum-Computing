@@ -39,8 +39,7 @@ namespace Lab3 {
     operation Exercise1 (qubitA : Qubit, qubitB : Qubit) : Unit {
         // Hint: you can do this with a single statement, using one gate.
 
-        // TODO
-        fail "Not implemented.";
+        SWAP(qubitA, qubitB);
     }
 
 
