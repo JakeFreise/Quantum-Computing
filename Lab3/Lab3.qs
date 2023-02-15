@@ -332,8 +332,21 @@ namespace Lab3 {
     /// ## register
     /// A two-qubit register in the |00> state.
     operation Challenge1 (register : Qubit[]) : Unit {
-        // TODO
-        fail "Not implemented.";
+
+        use scratch = Qubit();
+        mutable measurement = Zero;
+        repeat{
+            Reset(scratch);
+            ResetAll(register);
+            H(register[0]);
+            H(register[1]);
+            CCNOT(register[0], register[1], scratch);
+            set measurement = M(scratch);
+        }
+        until measurement == Zero
+        fixup{}
+
+        DumpRegister("Challenge1.txt", [register[0], register[1]]);
     }
 
 
