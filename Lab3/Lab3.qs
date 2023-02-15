@@ -363,8 +363,48 @@ namespace Lab3 {
     /// ## register
     /// A three-qubit register in the |000> state.
     operation Challenge2 (register : Qubit[]) : Unit {
-        // TODO
-        fail "Not implemented.";
+        use scratch1 = Qubit();
+        use scratch2 = Qubit();
+        use scratch3 = Qubit();
+        use scratch4 = Qubit();
+        use scratch5 = Qubit();
+        mutable m1 = Zero;
+        mutable m2 = Zero;
+        mutable m3 = Zero;
+        mutable m4 = Zero;
+        mutable m5 = Zero;
+        repeat{
+            ResetAll([scratch1, scratch2, scratch3]);
+            ResetAll(register);
+            H(register[0]);
+            H(register[1]);
+            H(register[2]);
+
+            //all zero?
+            Controlled X(register[0..2], scratch5);
+            X(register[0]);
+            X(register[1]);
+            X(register[2]);
+
+            // all one?
+            Controlled X(register[0..2], scratch1);
+
+            //two ones?
+            Controlled X(register[0..1], scratch2);
+            Controlled X(register[1..2], scratch3);
+            Controlled X([register[0], register[2]], scratch4);
+
+
+            set m1 = M(scratch1);
+            set m2 = M(scratch2);
+            set m3 = M(scratch3);
+            set m4 = M(scratch4);
+            set m5 = M(scratch5);
+        }
+        until m1 == Zero and m2 == Zero and m3 == Zero and m4 == Zero and m5 == Zero
+        fixup{}
+
+        DumpRegister("Challenge2.txt", register);
     }
 
 
