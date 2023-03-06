@@ -112,8 +112,9 @@ namespace Lab5 {
         input : Qubit[],
         target : Qubit
     ) : Unit {
-        // TODO
-        fail "Not implemented.";
+        
+        Controlled Z([input[firstIndex]], target); 
+        Controlled Z([input[secondIndex]], target); 
     }
 
 
