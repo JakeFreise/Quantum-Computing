@@ -175,6 +175,7 @@ namespace Lab5 {
                 set result = false;
             }
         }
+        X(output);
         return result;
     }
 }
