@@ -156,8 +156,25 @@ namespace Lab5 {
         //
         // Note: Remember to put the input and target in the correct states
         // before running the oracle!
+        
+        use (input, output) = (Qubit[inputLength], Qubit());
 
-        // TODO
-        fail "Not implemented.";
+        ApplyToEach(H, input);
+        X(output);
+
+        oracle(input, output);
+
+        ApplyToEach(H, input);
+
+        // assume constant
+        mutable result = true;
+
+        for qubit in input{
+            if M(qubit) == One{
+                Message($"Not Constant");
+                set result = false;
+            }
+        }
+        return result;
     }
 }
