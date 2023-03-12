@@ -18,6 +18,7 @@ namespace Lab6 {
     open Microsoft.Quantum.Convert;
     open Microsoft.Quantum.Intrinsic;
     open Microsoft.Quantum.Measurement;
+    open Microsoft.Quantum.Diagnostics;
 
 
     /// # Summary
@@ -102,8 +103,39 @@ namespace Lab6 {
         op : ((Qubit[], Qubit[]) => Unit),
         input : Bool[]
     ) : Bool[] {
-        // TODO
-        fail "Not implemented.";
+
+        Message($"{input}");
+
+        let input_size = Length(input);
+        use input_qubits = Qubit[input_size];
+        use output_qubits = Qubit[input_size];
+
+        mutable output = [false, size=input_size];
+
+        mutable index = 0;
+
+        for qubit in input_qubits{
+            if input[index] == true{
+                X(qubit);
+            }
+            set index += 1;
+        }
+
+        DumpRegister("Excerise1_pre_op.txt", input_qubits);
+        op(input_qubits, output_qubits);
+        DumpRegister("Excerise1_post_op.txt", output_qubits);
+
+        set index = 0;
+        for qubit in output_qubits{
+            let result = (M(qubit) == One) ? true | false;
+            set output w/= index <- result;
+            set index += 1;
+        }
+
+        Message($"{output}");
+        ResetAll(input_qubits);
+        ResetAll(output_qubits);
+        return output;
     }
 
 
@@ -131,8 +163,24 @@ namespace Lab6 {
         op : ((Qubit[], Qubit[]) => Unit),
         inputSize : Int
     ) : Bool[] {
-        // TODO
-        fail "Not implemented.";
+        use input_qubits = Qubit[inputSize];
+        use output_qubits = Qubit[inputSize];
+        mutable output = [false, size=inputSize];
+
+        ApplyToEach(H, input_qubits);
+        op(input_qubits, output_qubits);
+        ApplyToEach(H, input_qubits);
+
+        mutable index = 0;
+        for qubit in input_qubits{
+            let result = (M(qubit) == One) ? true | false;
+            set output w/= index <- result;
+            set index += 1;
+        }
+        
+        ResetAll(input_qubits);
+        ResetAll(output_qubits);
+        return output;
     }
 
 
