@@ -210,7 +210,21 @@ namespace Lab7 {
         // Grover search. It's provided here for your convenience.
         let iterations = Round(PI() / 4.0 * Sqrt(IntAsDouble(numberOfQubits)));
 
-        // TODO
-        fail "Not implemented.";
+        use register = Qubit[numberOfQubits];
+        use target = Qubit();
+
+        ApplyToEach(H, register);
+        X(target);
+        //H(target);
+
+        for i in 0 .. iterations - 1 {
+            Exercise4_GroverIteration(oracle, register, target);
+        }
+
+        mutable result = [false, size=numberOfQubits];
+        for idx in 0 .. numberOfQubits - 1 {
+            set result w/= idx <- M(register[idx]) == One;
+        }
+        return result;
     }
 }
