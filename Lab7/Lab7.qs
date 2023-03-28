@@ -38,8 +38,13 @@ namespace Lab7 {
     /// which means it can only reversible operations.
     operation Exercise1_XOR (classicalBits : Bool[], register : Qubit[]) : Unit
     is Adj {
-        // TODO
-        fail "Not implemented.";
+        
+        mutable index = 0;
+        for qubit in register{
+            if (classicalBits[index]){
+                X(qubit);
+            }
+        }
     }
 
 
