@@ -170,8 +170,15 @@ namespace Lab7 {
         register : Qubit[],
         target : Qubit
     ) : Unit {
-        // TODO
-        fail "Not implemented.";
+
+        //repeated section
+        oracle(register, target);
+
+        ApplyToEach(H, register);
+        ApplyToEach(X, register);
+        Controlled Z(register, target);
+        ApplyToEach(X, register);
+        ApplyToEach(H, register);
     }
 
 
