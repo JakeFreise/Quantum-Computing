@@ -39,10 +39,11 @@ namespace Lab7 {
     operation Exercise1_XOR (classicalBits : Bool[], register : Qubit[]) : Unit
     is Adj {
         
-        mutable index = 0;
-        for qubit in register{
-            if (classicalBits[index]){
-                X(qubit);
+        let length = Length(classicalBits);
+
+        for i in 0 .. length - 1 {
+            if (classicalBits[i]){
+                X(register[i]);
             }
         }
     }
