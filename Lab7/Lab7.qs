@@ -123,8 +123,21 @@ namespace Lab7 {
         // then run Exercise1 in Adjoint mode to put the register back into
         // its original state.
 
-        // TODO
-        fail "Not implemented.";
+        // Compute the XOR of the originalMessage and candidateEncryptionKey
+        Exercise1_XOR(originalMessage, candidateEncryptionKey);
+        
+        // Compare the candidateEncryptionKey to the encryptedMessage
+        Exercise1_XOR(encryptedMessage, candidateEncryptionKey);
+        
+        // Check to see if all qubits are in the encrypted state
+        ApplyToEach(X, candidateEncryptionKey);
+        (Controlled Z)(candidateEncryptionKey, target);
+        ApplyToEach(X, candidateEncryptionKey);
+        
+        Adjoint Exercise1_XOR(encryptedMessage, candidateEncryptionKey);
+        
+        // Uncompute the XOR operation
+        Adjoint Exercise1_XOR(originalMessage, candidateEncryptionKey);
     }
 
 
