@@ -106,9 +106,44 @@ namespace Lab9 {
         // unit test fails, even if you have the correct answer. If you think
         // you do, run the test again. Also, look at the output of the test to
         // see what values you came up with versus what the system expects.
+        
+        let output_size = Ceiling(Lg(IntAsDouble(numberToFactor + 1)));
+        let input_size = 2*output_size;
 
-        // TODO
-        fail "Not implemented.";
+        use input = Qubit[output_size * 2];
+        use output = Qubit[output_size];
+
+        //Exercise 1 expects input to be in uniform super-position
+        for qubit in input{
+            H(qubit);
+        }
+
+        Exercise1_ModExp(guess, numberToFactor, input, output);
+
+        // Reverse QFT to find period
+        Adjoint QFT(BigEndian(input));
+
+        for i in 0 .. input_size / 2 - 1 {
+            SWAP(
+                input[i],
+                input[input_size - i - 1]
+            );
+        }
+
+        mutable loudest_period = 0;
+
+        for i in 0 .. input_size-1{
+            if (M(input[i]) == One){
+                set loudest_period = loudest_period + 2^i;
+            }
+        }
+
+        let numerator = loudest_period;
+        let denominator = 2 ^ input_size;
+
+        ResetAll(output);
+
+        return (numerator, denominator);
     }
 
 
