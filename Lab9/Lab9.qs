@@ -50,9 +50,20 @@ namespace Lab9 {
         // exponent classically. You can use the
         // Microsoft.Quantum.Arithmetic.MultiplyByModularInteger() function to
         // do an in-place quantum modular multiplication.
+        
+        let input_n = Length(input);
+        let output_n = Length(output);
 
-        // TODO
-        fail "Not implemented.";
+        X(output[output_n - 1]);
+
+        let multiplicand = LittleEndian(output);
+
+        for i in 0..input_n - 1 {
+            let power =  2 ^ (input_n - i - 1);
+            let multiplier = ExpModI(a, power, b);
+            let mulitplier_modulus_multiplicand = (multiplier, b, multiplicand);
+            Controlled MultiplyByModularInteger([input[i]], mulitplier_modulus_multiplicand);
+        }
     }
 
 
