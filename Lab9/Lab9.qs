@@ -107,6 +107,7 @@ namespace Lab9 {
         // you do, run the test again. Also, look at the output of the test to
         // see what values you came up with versus what the system expects.
         
+        //find number of bits desired number requires. Basically just log2 N + 1. but that gives a float
         let output_size = Ceiling(Lg(IntAsDouble(numberToFactor + 1)));
         let input_size = 2*output_size;
 
